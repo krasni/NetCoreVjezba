@@ -1,8 +1,7 @@
 ﻿@model EmployeeManagement.ViewModels.HomeDetailsViewModel
 
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "Detail";
+    ViewBag.Title = "Employee Details";
 }
 
 <h3>@Model.PageTitle</h3>
@@ -16,3 +15,7 @@
 <div>
     Department: @Model.Employee.Department
 </div>
+
+@section Scripts{ 
+    <script src="\js\CustomScript.js"></script>
+}

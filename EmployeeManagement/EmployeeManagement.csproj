@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\1511.bmp" />
+    <None Include="wwwroot\images\1511.bmp" />
     <None Include="wwwroot\foo.html" />
   </ItemGroup>
 

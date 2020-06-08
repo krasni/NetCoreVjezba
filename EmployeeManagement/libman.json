@@ -10,5 +10,11 @@
       "library": "jquery@3.3.1",
       "destination": "wwwroot/lib/bootstrap/"
     }
-  ]
+  ,
+{
+  "provider": "cdnjs",
+  "library": "jquery@3.5.1",
+  "destination": "wwwroot/lib/jquery/"
+}
+]
 }

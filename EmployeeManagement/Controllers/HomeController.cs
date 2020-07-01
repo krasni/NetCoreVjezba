@@ -46,6 +46,12 @@ namespace EmployeeManagement.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ViewResult Edit()
+        {
+            return View();
+        }
+
         [HttpPost]
         public IActionResult Create(EmployeeCreateViewModel model)
         {

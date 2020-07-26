@@ -1,5 +1,6 @@
 ﻿using EmployeeManagement.Models;
 using EmployeeManagement.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -26,12 +27,14 @@ namespace EmployeeManagement.Controllers
             this.logger = logger;
         }
 
+        [AllowAnonymous]
         public ViewResult Index()
         {
             var model = _employeeRepository.GetAllEmployee();
             return View(model);
         }
 
+        [AllowAnonymous]
         public ViewResult Details(int? id)
         {
             //throw new Exception("Error in Details View");

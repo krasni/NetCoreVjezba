@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace EmployeeManagement.Controllers
 {
+    [Authorize]
     public class HomeController: Controller
     {
         private IEmployeeRepository _employeeRepository;

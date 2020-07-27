@@ -1,4 +1,4 @@
-﻿@inject SignInManager<IdentityUser> signInManager; 
+﻿@inject SignInManager<ApplicationUser> signInManager; 
 
 <!DOCTYPE html>
 
@@ -22,7 +22,7 @@
             asp-fallback-href="~/lib/bootstrap/css/bootstrap.min.css"
             asp-fallback-test-class="sr-only"
             asp-fallback-test-property="position"
-            asp-fallback-test-value="absolute"
+            asp-fallback-test-value="absolute" 
             asp-suppress-fallback-integrity="true"
         />
     </environment>

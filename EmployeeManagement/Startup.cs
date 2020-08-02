@@ -46,6 +46,27 @@ namespace EmployeeManagement
                                      .Build();
                 options.Filters.Add(new AuthorizeFilter(policy));
             }).AddXmlSerializerFormatters();
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.AccessDeniedPath = new PathString("/Administration/AccessDenied");
+            });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("DeleteRolePolicy",
+                    policy => policy.RequireClaim("Delete Role", "true"));
+
+                options.AddPolicy("EditRolePolicy", policy => policy.RequireAssertion(context =>
+                    context.User.IsInRole("Admin") &&
+                    context.User.HasClaim(claim => claim.Type == "Edit Role" && claim.Value == "true") ||
+                    context.User.IsInRole("Super Admin")
+                ));
+
+                options.AddPolicy("AdminRolePolicy",
+                    policy => policy.RequireRole("Admin"));
+            });
+
             services.AddScoped<IEmployeeRepository, SQLEmployeeRepository>();
         }
 

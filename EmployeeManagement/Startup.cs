@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EmployeeManagement.Models;
+using EmployeeManagement.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -57,15 +58,15 @@ namespace EmployeeManagement
                 options.AddPolicy("DeleteRolePolicy",
                     policy => policy.RequireClaim("Delete Role", "true"));
 
-                options.AddPolicy("EditRolePolicy", policy => policy.RequireAssertion(context =>
-                    context.User.IsInRole("Admin") &&
-                    context.User.HasClaim(claim => claim.Type == "Edit Role" && claim.Value == "true") ||
-                    context.User.IsInRole("Super Admin")
-                ));
+                options.AddPolicy("EditRolePolicy",
+                    policy => policy.AddRequirements(new ManageAdminRolesAndClaimsRequirement()));
 
                 options.AddPolicy("AdminRolePolicy",
                     policy => policy.RequireRole("Admin"));
             });
+
+            services.AddSingleton<IAuthorizationHandler, CanEditOnlyOtherAdminRolesAndClaimsHandler>();
+            services.AddSingleton<IAuthorizationHandler, SuperAdminHandler>();
 
             services.AddScoped<IEmployeeRepository, SQLEmployeeRepository>();
         }

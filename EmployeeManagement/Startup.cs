@@ -38,7 +38,10 @@ namespace EmployeeManagement
             {
                 options.Password.RequiredLength = 10;
                 options.Password.RequiredUniqueChars = 3;
-            }).AddEntityFrameworkStores<AppDbContext>();
+
+                options.SignIn.RequireConfirmedEmail = true;
+            }).AddEntityFrameworkStores<AppDbContext>()
+              .AddDefaultTokenProviders();
 
             services.AddMvc(options =>
             {
@@ -48,9 +51,21 @@ namespace EmployeeManagement
                 options.Filters.Add(new AuthorizeFilter(policy));
             }).AddXmlSerializerFormatters();
 
+            services.AddAuthentication().AddGoogle( options =>
+            {
+                options.ClientId = "2672635982-gsmgdf0p1s6skmpmfg8um63l6r768uv9.apps.googleusercontent.com";
+                options.ClientSecret = "5hPunhfMb8GxC05OelJfMePM";
+            })
+            .AddFacebook(options =>
+            {
+                options.AppId = "213282610099137";
+                options.AppSecret = "f3ffbf43a325ab30b10d99d6dcf475f3";
+            });
+
             services.ConfigureApplicationCookie(options =>
             {
                 options.AccessDeniedPath = new PathString("/Administration/AccessDenied");
+                options.Cookie.Name = "MojCookieName";
             });
 
             services.AddAuthorization(options =>

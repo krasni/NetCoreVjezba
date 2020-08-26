@@ -9,6 +9,11 @@ namespace EmployeeManagement.Security
     public class SuperAdminHandler :
     AuthorizationHandler<ManageAdminRolesAndClaimsRequirement>
     {
+        public SuperAdminHandler()
+        {
+
+        }
+
         protected override Task HandleRequirementAsync(
             AuthorizationHandlerContext context,
             ManageAdminRolesAndClaimsRequirement requirement)
